@@ -1,8 +1,25 @@
-name: cookbook-dev
+name: po-cookbook-dev
 channels:
   - conda-forge
 dependencies:
   - jupyter-book
+  - numpy
+  - xarray
+  - matplotlib
+  - hvplot
+  - intake
+  - intake-xarray
+  - gcsfs
+  - dask
+  - dask-gateway
+  - fsspec
+  - holoviews
+  - datashader
+  - ipyleaflet
+  - cartopy
+  - pyresample
+  - xgcm
+  - xhistogram
   - pip
   - pip:
       - sphinx-pythia-theme
