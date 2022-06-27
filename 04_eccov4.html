@@ -51,9 +51,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Gulf Stream Currents" href="05_gulf_stream_currents.html" />
+    <link rel="prev" title="MOM6/CESM Ocean Model Analysis" href="03_cesm_MOM6.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -185,6 +189,38 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="notebook-template.html">
    Project Pythia Notebook Template
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Example Workflows
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_sea-surface-height.html">
+   Sea Surface Altimetry Data Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_along_track.html">
+   Along Track Altimetry Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_cesm_MOM6.html">
+   MOM6/CESM Ocean Model Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   MITgcm ECCOv4 Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_gulf_stream_currents.html">
+   Gulf Stream Currents
   </a>
  </li>
 </ul>
@@ -382,6 +418,232 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">intake</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_catalog</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml&quot;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">ECCOv4r3</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">ds</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake_xarray/base.py:69,</span> in <span class="ni">DataSourceMixin.to_dask</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span> <span class="k">def</span> <span class="nf">to_dask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="sd">&quot;&quot;&quot;Return xarray object where variables are dask arrays&quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">69</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_chunked</span><span class="p">()</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake_xarray/base.py:44,</span> in <span class="ni">DataSourceMixin.read_chunked</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="k">def</span> <span class="nf">read_chunked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="sd">&quot;&quot;&quot;Return xarray object (which will have chunks)&quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">44</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_load_metadata</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake/source/base.py:236,</span> in <span class="ni">DataSourceBase._load_metadata</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span> <span class="sd">&quot;&quot;&quot;load metadata only if needed&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">236</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_schema</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">237</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">dtype</span>
+<span class="g g-Whitespace">    </span><span class="mi">238</span>     <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake_xarray/base.py:18,</span> in <span class="ni">DataSourceMixin._get_schema</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="bp">self</span><span class="o">.</span><span class="n">urlpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">urlpath</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">18</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_open_dataset</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="s1">&#39;dims&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ds</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>         <span class="s1">&#39;data_vars&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>                       <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">keys</span><span class="p">()},</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="s1">&#39;coords&#39;</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ds</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="p">}</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;on_server&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake_xarray/xzarr.py:46,</span> in <span class="ni">ZarrSource._open_dataset</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">urlpath</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">46</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">urlpath</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/xarray/backends/api.py:495,</span> in <span class="ni">open_dataset</span><span class="nt">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, backend_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="n">decoders</span> <span class="o">=</span> <span class="n">_resolve_decoders_kwargs</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="n">decode_cf</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="n">open_backend_dataset_parameters</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">open_dataset_parameters</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="n">overwrite_encoded_chunks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;overwrite_encoded_chunks&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">495</span> <span class="n">backend_ds</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="o">**</span><span class="n">decoders</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">_dataset_from_backend_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="n">backend_ds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span> <span class="k">return</span> <span class="n">ds</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/xarray/backends/zarr.py:800,</span> in <span class="ni">ZarrBackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, stacklevel)</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span> <span class="k">def</span> <span class="nf">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">782</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">796</span>     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">797</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">799</span>     <span class="n">filename_or_obj</span> <span class="o">=</span> <span class="n">_normalize_path</span><span class="p">(</span><span class="n">filename_or_obj</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">800</span>     <span class="n">store</span> <span class="o">=</span> <span class="n">ZarrStore</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">801</span>         <span class="n">filename_or_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">802</span>         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span>         <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">804</span>         <span class="n">synchronizer</span><span class="o">=</span><span class="n">synchronizer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">805</span>         <span class="n">consolidated</span><span class="o">=</span><span class="n">consolidated</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">806</span>         <span class="n">consolidate_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">807</span>         <span class="n">chunk_store</span><span class="o">=</span><span class="n">chunk_store</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">808</span>         <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">809</span>         <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">810</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span>     <span class="n">store_entrypoint</span> <span class="o">=</span> <span class="n">StoreBackendEntrypoint</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span>     <span class="k">with</span> <span class="n">close_on_error</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/xarray/backends/zarr.py:368,</span> in <span class="ni">ZarrStore.open_group</span><span class="nt">(cls, store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, append_dim, write_region, safe_chunks, stacklevel)</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>         <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="k">elif</span> <span class="n">consolidated</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="c1"># TODO: an option to pass the metadata_key keyword</span>
+<span class="ne">--&gt; </span><span class="mi">368</span>     <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_consolidated</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">369</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span>     <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/zarr/convenience.py:1304,</span> in <span class="ni">open_consolidated</span><span class="nt">(store, metadata_key, mode, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1299</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1300</span>             <span class="s2">&quot;path must be provided to open a Zarr 3.x consolidated store&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1303</span> <span class="c1"># setup metadata store</span>
+<span class="ne">-&gt; </span><span class="mi">1304</span> <span class="n">meta_store</span> <span class="o">=</span> <span class="n">ConsolidatedStoreClass</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">metadata_key</span><span class="o">=</span><span class="n">metadata_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1306</span> <span class="c1"># pass through</span>
+<span class="g g-Whitespace">   </span><span class="mi">1307</span> <span class="n">chunk_store</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunk_store&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">store</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/zarr/storage.py:2853,</span> in <span class="ni">ConsolidatedMetadataStore.__init__</span><span class="nt">(self, store, metadata_key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2850</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">Store</span><span class="o">.</span><span class="n">_ensure_store</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2852</span> <span class="c1"># retrieve consolidated metadata</span>
+<span class="ne">-&gt; </span><span class="mi">2853</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">json_loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">metadata_key</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">2855</span> <span class="c1"># check format of consolidated metadata</span>
+<span class="g g-Whitespace">   </span><span class="mi">2856</span> <span class="n">consolidated_format</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;zarr_consolidated_format&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/zarr/storage.py:1369,</span> in <span class="ni">FSStore.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1367</span> <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1368</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1369</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1370</span> <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">exceptions</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1371</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/fsspec/mapping.py:137,</span> in <span class="ni">FSMap.__getitem__</span><span class="nt">(self, key, default)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_to_str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing_exceptions</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/fsspec/asyn.py:86,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">86</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/fsspec/asyn.py:66,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="k">raise</span> <span class="n">FSTimeoutError</span> <span class="kn">from</span> <span class="nn">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_result</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">66</span>     <span class="k">raise</span> <span class="n">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="k">return</span> <span class="n">return_result</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/fsspec/asyn.py:26,</span> in <span class="ni">_runner</span><span class="nt">(event, coro, result, timeout)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>     <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">26</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">coro</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ex</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/fsspec/asyn.py:398,</span> in <span class="ni">AsyncFileSystem._cat</span><span class="nt">(self, path, recursive, on_error, batch_size, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="n">ex</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">is_exception</span><span class="p">,</span> <span class="n">out</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span>     <span class="k">if</span> <span class="n">ex</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">398</span>         <span class="k">raise</span> <span class="n">ex</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span>     <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>     <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span>     <span class="ow">or</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strip_protocol</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span>         <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+<span class="nn">    406         for k, v</span> in <span class="ni">zip</span><span class="nt">(paths, out)</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>         <span class="k">if</span> <span class="n">on_error</span> <span class="o">!=</span> <span class="s2">&quot;omit&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_exception</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">408</span>     <span class="p">}</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/asyncio/tasks.py:442,</span> in <span class="ni">wait_for</span><span class="nt">(fut, timeout, loop)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The loop argument is deprecated since Python 3.8, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span>                   <span class="s2">&quot;and scheduled for removal in Python 3.10.&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span>                   <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span> <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">442</span>     <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+<span class="g g-Whitespace">    </span><span class="mi">444</span> <span class="k">if</span> <span class="n">timeout</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span>     <span class="n">fut</span> <span class="o">=</span> <span class="n">ensure_future</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/gcsfs/core.py:781,</span> in <span class="ni">GCSFileSystem._cat_file</span><span class="nt">(self, path, start, end, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="n">head</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="ne">--&gt; </span><span class="mi">781</span> <span class="n">headers</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">head</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">782</span> <span class="k">return</span> <span class="n">out</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/gcsfs/core.py:392,</span> in <span class="ni">GCSFileSystem._call</span><span class="nt">(self, method, path, json_out, info_out, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span> <span class="k">async</span> <span class="k">def</span> <span class="nf">_call</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>     <span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">json_out</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">info_out</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span>     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">392</span>     <span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span>         <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="k">if</span> <span class="n">json_out</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/decorator.py:221,</span> in <span class="ni">decorate.&lt;locals&gt;.fun</span><span class="nt">(*args, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">kwsyntax</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span>     <span class="n">args</span><span class="p">,</span> <span class="n">kw</span> <span class="o">=</span> <span class="n">fix</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">221</span> <span class="k">return</span> <span class="k">await</span> <span class="n">caller</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">extras</span> <span class="o">+</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/gcsfs/retry.py:115,</span> in <span class="ni">retry_request</span><span class="nt">(func, retries, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="k">if</span> <span class="n">retry</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>         <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">retry</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">32</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">115</span>     <span class="k">return</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="k">except</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">HttpError</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">aiohttp</span><span class="o">.</span><span class="n">client_exceptions</span><span class="o">.</span><span class="n">ClientError</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span> <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">HttpError</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>         <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">400</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>         <span class="ow">and</span> <span class="s2">&quot;requester pays&quot;</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span>     <span class="p">):</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/gcsfs/core.py:384,</span> in <span class="ni">GCSFileSystem._request</span><span class="nt">(self, method, path, headers, json, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span> <span class="n">info</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">request_info</span>  <span class="c1"># for debug only</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span> <span class="n">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">384</span> <span class="n">validate_response</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">contents</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span> <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">contents</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/gcsfs/retry.py:100,</span> in <span class="ni">validate_response</span><span class="nt">(status, content, path, args)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ProxyError</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span> <span class="k">elif</span> <span class="s2">&quot;invalid&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">100</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Bad Request: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="k">elif</span> <span class="n">error</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span>     <span class="k">raise</span> <span class="n">HttpError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: Bad Request: https://storage.googleapis.com/download/storage/v1/b/pangeo-ecco-eccov4r3/o/eccov4r3%2F.zmetadata?alt=media
+<span class="n">User</span> <span class="n">project</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">request</span> <span class="ow">is</span> <span class="n">invalid</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>Note that no data has been actually download yet. Xarray uses the approach of <em>lazy evaluation</em>, in which loading of data and execution of computations is delayed as long as possible (i.e. until data is actually needed for a plot). The data are represented symbolically as <a class="reference external" href="http://docs.dask.org/en/latest/array.html">dask arrays</a>. For example:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SALT       (time, k, face, j, i) float32 dask.array&lt;shape=(288, 50, 13, 90, 90), chunksize=(1, 50, 13, 90, 90)&gt;
@@ -393,6 +655,18 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a trick to make things work a bit faster</span>
 <span class="n">coords</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">()</span>
 <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># a trick to make things work a bit faster</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">coords</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -410,6 +684,16 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span><span class="o">.</span><span class="n">Depth</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;face&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">coords</span><span class="o">.</span><span class="n">Depth</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;face&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;coords&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -492,6 +776,17 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">LLCMapper</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mapper</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">Depth</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;coords&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>We can use this with any 2D cell-centered LLC variable.</p>
 </div>
@@ -506,11 +801,32 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sst</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">THETA</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;2000-01-15&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">sst</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>Still no data has been actually downloaded. That doesn’t happen until we call <code class="docutils literal notranslate"><span class="pre">.load()</span></code> explicitly or try to make a plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapper</span><span class="p">(</span><span class="n">sst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mapper</span><span class="p">(</span><span class="n">sst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -526,6 +842,17 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mean_sst</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">THETA</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">mean_sst</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>As usual, no data was loaded. Instead, <code class="docutils literal notranslate"><span class="pre">mean_sst</span></code> is a symbolic representation of the data that needs to be pulled and the computations that need to be executed to produce the desired result. In this case, the 288 original chunks all need to be read from cloud storage. Dask coordinates this automatically for us. But it does take some time.</p>
 <div class="cell docutils container">
@@ -534,10 +861,29 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">File</span> <span class="o">&lt;</span><span class="n">timed</span> <span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+
+<span class="ne">NameError</span>: name &#39;mean_sst&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapper</span><span class="p">(</span><span class="n">mean_sst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mapper</span><span class="p">(</span><span class="n">mean_sst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -559,11 +905,76 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [12],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">dask_gateway</span> <span class="kn">import</span> <span class="n">GatewayCluster</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">GatewayCluster</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/dask_gateway/client.py:815,</span> in <span class="ni">GatewayCluster.__init__</span><span class="nt">(self, address, proxy_address, public_address, auth, cluster_options, shutdown_on_close, asynchronous, loop, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">804</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">805</span>     <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">814</span> <span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">815</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_init_internal</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">816</span>         <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">817</span>         <span class="n">proxy_address</span><span class="o">=</span><span class="n">proxy_address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">818</span>         <span class="n">public_address</span><span class="o">=</span><span class="n">public_address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">819</span>         <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">820</span>         <span class="n">cluster_options</span><span class="o">=</span><span class="n">cluster_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">821</span>         <span class="n">cluster_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">822</span>         <span class="n">shutdown_on_close</span><span class="o">=</span><span class="n">shutdown_on_close</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">823</span>         <span class="n">asynchronous</span><span class="o">=</span><span class="n">asynchronous</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span>         <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">825</span>     <span class="p">)</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/dask_gateway/client.py:888,</span> in <span class="ni">GatewayCluster._init_internal</span><span class="nt">(self, address, proxy_address, public_address, auth, cluster_options, cluster_kwargs, shutdown_on_close, asynchronous, loop, name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">884</span> <span class="bp">self</span><span class="o">.</span><span class="n">shutdown_on_close</span> <span class="o">=</span> <span class="n">shutdown_on_close</span>
+<span class="g g-Whitespace">    </span><span class="mi">886</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">888</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="n">Gateway</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">889</span>     <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">890</span>     <span class="n">proxy_address</span><span class="o">=</span><span class="n">proxy_address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">891</span>     <span class="n">public_address</span><span class="o">=</span><span class="n">public_address</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">892</span>     <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">893</span>     <span class="n">asynchronous</span><span class="o">=</span><span class="n">asynchronous</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">894</span>     <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">895</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">897</span> <span class="c1"># Internals</span>
+<span class="g g-Whitespace">    </span><span class="mi">898</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler_info</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/dask_gateway/client.py:282,</span> in <span class="ni">Gateway.__init__</span><span class="nt">(self, address, proxy_address, public_address, auth, asynchronous, loop)</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="n">address</span> <span class="o">=</span> <span class="n">format_template</span><span class="p">(</span><span class="n">dask</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;gateway.address&quot;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span> <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">282</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span>         <span class="s2">&quot;No dask-gateway address provided or found in configuration&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span> <span class="n">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">if</span> <span class="n">public_address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="ne">ValueError</span>: No dask-gateway address provided or found in configuration
+</pre></div>
+</div>
+</div>
 </div>
 <p>Now we re-run the mean calculation. Note how the dashboard helps us visualize what the cluster is doing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> ds.THETA.isel(k=0).mean(dim=&#39;time&#39;).load()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">File</span> <span class="o">&lt;</span><span class="n">timed</span> <span class="nb">eval</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -587,6 +998,19 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [14],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># the monthly climatology</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">theta_clim</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">THETA</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time.month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># the anomaly</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">theta_anom</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">THETA</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time.month&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">theta_clim</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -595,6 +1019,19 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 <span class="c1"># put the depth coordinate back for plotting purposes</span>
 <span class="n">ohc</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">Z</span>
 <span class="n">ohc</span><span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="s1">&#39;Z&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vmax</span><span class="o">=</span><span class="mf">1e20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [15],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># actually load the data</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ohc</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># put the depth coordinate back for plotting purposes</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">ohc</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">Z</span>
+
+<span class="ne">NameError</span>: name &#39;ohc&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -653,6 +1090,24 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [16],</span> in <span class="ni">&lt;cell line: 33&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">face_connections</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;face&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                     <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;X&#39;</span><span class="p">:</span>  <span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                          <span class="s1">&#39;Y&#39;</span><span class="p">:</span>  <span class="p">(</span><span class="kc">None</span><span class="p">,</span>             <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))},</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>                      <span class="mi">12</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span>                           <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))}}}</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="c1"># create the grid object</span>
+<span class="ne">---&gt; </span><span class="mi">33</span> <span class="n">grid</span> <span class="o">=</span> <span class="n">xgcm</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">face_connections</span><span class="o">=</span><span class="n">face_connections</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">grid</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>Now we can use the <code class="docutils literal notranslate"><span class="pre">grid</span></code> object we created to take the divergence of a 2D vector</p>
 <div class="cell docutils container">
@@ -666,6 +1121,19 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 <span class="c1"># convergence</span>
 <span class="n">conv_ADV_th</span> <span class="o">=</span> <span class="o">-</span><span class="n">diff_ADV_th</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">diff_ADV_th</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span>
 <span class="n">conv_ADV_th</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [17],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># vertical integral and time mean of horizontal diffusive heat flux</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">advx_th_vint</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">ADVx_TH</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">advy_th_vint</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">ADVy_TH</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># difference in the x and y directions</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -684,12 +1152,37 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [18],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># vertical integral and time mean of horizontal diffusive heat flux</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">difx_th_vint</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">DFxE_TH</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">dify_th_vint</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">DFyE_TH</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># difference in the x and y directions</span>
+
+<span class="ne">NameError</span>: name &#39;ds&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert to Watts / m^2 and load</span>
 <span class="n">mean_adv_conv</span> <span class="o">=</span> <span class="n">rho0</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv_ADV_th</span><span class="o">/</span><span class="n">coords</span><span class="o">.</span><span class="n">rA</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">mean_dif_conv</span> <span class="o">=</span> <span class="n">rho0</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv_DIF_th</span><span class="o">/</span><span class="n">coords</span><span class="o">.</span><span class="n">rA</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [19],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># convert to Watts / m^2 and load</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mean_adv_conv</span> <span class="o">=</span> <span class="n">rho0</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv_ADV_th</span><span class="o">/</span><span class="n">coords</span><span class="o">.</span><span class="n">rA</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">mean_dif_conv</span> <span class="o">=</span> <span class="n">rho0</span> <span class="o">*</span> <span class="n">cp</span> <span class="o">*</span> <span class="p">(</span><span class="n">conv_DIF_th</span><span class="o">/</span><span class="n">coords</span><span class="o">.</span><span class="n">rA</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;rho0&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -701,11 +1194,33 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [20],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">mean_adv_conv</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">);</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Convergence of Advective Flux (W/m$^2$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">mean_dif_conv</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Convergence of Diffusive Flux (W/m$^2$)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [21],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">mean_dif_conv</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Convergence of Diffusive Flux (W/m$^2$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -717,11 +1232,33 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [22],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">mean_dif_conv</span> <span class="o">+</span> <span class="n">mean_adv_conv</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Convergence of Net Horizontal Flux (W/m$^2$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">TFLUX</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Surface Heat Flux (W/m$^2$)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [23],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">TFLUX</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">);</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Surface Heat Flux (W/m$^2$)&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;mapper&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -751,7 +1288,21 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
 
               </div>
               <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="03_cesm_MOM6.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">MOM6/CESM Ocean Model Analysis</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="05_gulf_stream_currents.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gulf Stream Currents</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </div>
           </div>
