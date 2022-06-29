@@ -11,11 +11,11 @@ jobs:
     with:
       environment_name: po-cookbook-dev
       environment_file: environment.yml
-      path_to_notebooks: notebooks/
+      path_to_notebooks: ./
 
   link-check:
     uses: ProjectPythiaCookbooks/cookbook-actions/.github/workflows/link-checker.yaml@main
     with:
       environment_name: po-cookbook-dev
       environment_file: environment.yml
-      path_to_notebooks: notebooks/
+      path_to_notebooks: ./
