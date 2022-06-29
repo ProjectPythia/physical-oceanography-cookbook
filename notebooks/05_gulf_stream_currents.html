@@ -320,6 +320,56 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> On this page
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequisites">
+   Prerequisites
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imports">
+   Imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data">
+   Load Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#working-with-requester-pays-data">
+     Working with requester pays data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#make-a-map">
+   Make a Map
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#resources-and-references">
+   Resources and references
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -328,10 +378,55 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
               
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="gulf-stream-currents">
+  <p><a class="reference internal" href="../_images/ProjectPythia_Logo_Final-01-Blue.svg"><img alt="Project Pythia Logo" src="../_images/ProjectPythia_Logo_Final-01-Blue.svg" width="250" /></a></img>
+<a class="reference internal" href="../_images/pangeo_simple_logo.svg"><img alt="Pangeo Logo" src="../_images/pangeo_simple_logo.svg" width="250" /></a></img></p>
+<div class="tex2jax_ignore mathjax_ignore section" id="gulf-stream-currents">
 <h1>Gulf Stream Currents<a class="headerlink" href="#gulf-stream-currents" title="Permalink to this headline"><i class="fas fa-link"></i></a></h1>
+<hr class="docutils" />
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
 <p>An example that uses <code class="docutils literal notranslate"><span class="pre">ipyleaflet</span></code> to reproduce style of visualization used in the New York Times article
 <a class="reference external" href="https://www.nytimes.com/interactive/2021/03/02/climate/atlantic-ocean-climate-change.html">In the Atlantic Ocean, Subtle Shifts Hint at Dramatic Dangers</a> (March 2, 20121).</p>
+<ol class="simple">
+<li><p>Open an Intake catalogue reference Sea Surface Height data</p></li>
+<li><p>Make a geographic map of the data using ipyleaflet</p></li>
+</ol>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concepts</p></th>
+<th class="head"><p>Importance</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/xarray.html">Xarray</a></p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.dask.org/en/stable/">Dask</a></p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://intake.readthedocs.io/en/stable/">Intake</a></p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://ipyleaflet.readthedocs.io/en/latest/">ipyleaflet</a></p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>Time to learn</strong>: 15 minutes</p></li>
+</ul>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
+<hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipyleaflet</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">TileLayer</span><span class="p">,</span> <span class="n">basemaps</span>
@@ -341,10 +436,64 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="load-data">
+<h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
+<p>The <a class="reference external" href="https://marine.copernicus.eu/">Copernicus Monitoring Environment Marine Service (CMEMS)</a> is a large repository of ocean products including in-situ observations, satellite based remote sensing data, and numerical model output.</p>
+<p>We want to look at altimeter satellite data to show the Sea Level Anomalies (SLA) for the global ocean. The particular data product is called <strong>Global Ocean Gridded L4 Sea Surface Heights and Derived Variables Reprocessed (1993-Ongoing)</strong> (<a class="reference external" href="https://resources.marine.copernicus.eu/product-detail/SEALEVEL_GLO_PHY_L4_MY_008_047/INFORMATION">SEALEVEL_GLO_PHY_L4_MY_008_047</a>).</p>
+<p>This dataset is available as an analysis-ready on the Pangeo Cloud Data Catalog</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">open_catalog</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml&quot;</span><span class="p">)</span>
-<span class="n">ds</span>  <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s2">&quot;sea_surface_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+<span class="n">cat</span><span class="p">[</span><span class="s2">&quot;sea_surface_height&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sea_surface_height:
+  args:
+    consolidated: true
+    storage_options:
+      requester_pays: true
+    urlpath: gs://pangeo-cmems-duacs
+  description: sea-surface altimetry data from The Copernicus Marine Environment
+  driver: intake_xarray.xzarr.ZarrSource
+  metadata:
+    catalog_dir: https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs
+    tags:
+    - ocean
+    - satellite
+    url: http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataset is marked “requester pays” which means we have do an addtional step if we are not already on Pangeo Hub on the Google Cloud Platform.</p>
+<div class="section" id="working-with-requester-pays-data">
+<h3>Working with requester pays data<a class="headerlink" href="#working-with-requester-pays-data" title="Permalink to this headline"><i class="fas fa-link"></i></a></h3>
+<p>Several of the datasets within the Pangeo cloud data catalog are contained in <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">requester pays</a> storage buckets. This means that a user requesting data must provide their own billing project (created and authenticated through Google Cloud Platform) to be billed for the charges associated with accessing a dataset. To set up an GCP billing project and use it for authentication in applications:</p>
+<ul>
+<li><p><a class="reference external" href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project">Create a project on GCP</a>; if this is the first time using GCP, a prompt will appear to choose a Google account to link to all GCP-related activities.</p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/billing/docs/how-to/manage-billing-account#create_a_new_billing_account">Create a Cloud Billing account</a> associated with the project and <a class="reference external" href="https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project">enable billing for the project</a> through this account.</p></li>
+<li><p>Using <a class="reference external" href="https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-console">Google Cloud IAM</a>, add the <strong>Service Usage Consumer</strong> role to your account, which enables it to make billed requests on the behalf of the project.
+Through command line, install the <a class="reference external" href="https://cloud.google.com/sdk">Google Cloud SDK</a>; this can be done using conda:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">google-cloud-sdk</span></code></p>
+</li>
+<li><p>Initialize the <code class="docutils literal notranslate"><span class="pre">gcloud</span></code> command line interface, logging into the account used to create the aforementioned project and selecting it as the default project; this will allow the project to be used for requester pays access through the command line:</p>
+<div class="highlight-gcloud notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>gcloud init```</p>
+<ul>
+<li><p>Finally, use <code class="docutils literal notranslate"><span class="pre">gcloud</span></code> to establish application default credentials; this will allow the project to be used for requester pays access through applications:</p>
+<p><code class="docutils literal notranslate"><span class="pre">gcloud</span> <span class="pre">auth</span> <span class="pre">application-default</span> <span class="pre">login</span></code></p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span>  <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s2">&quot;sea_surface_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
 <span class="n">ds</span>
 </pre></div>
 </div>
@@ -352,10 +501,9 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">open_catalog</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml&quot;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ds</span>  <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s2">&quot;sea_surface_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ds</span>
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ds</span>  <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s2">&quot;sea_surface_height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ds</span>
 
 <span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.9/site-packages/intake_xarray/base.py:69,</span> in <span class="ni">DataSourceMixin.to_dask</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">     </span><span class="mi">67</span> <span class="k">def</span> <span class="nf">to_dask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -575,6 +723,10 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="make-a-map">
+<h2>Make a Map<a class="headerlink" href="#make-a-map" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">]</span>
@@ -604,7 +756,7 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 11&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 11&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="n">zoom</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">basemap</span><span class="o">=</span><span class="n">basemaps</span><span class="o">.</span><span class="n">Gaode</span><span class="o">.</span><span class="n">Satellite</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">display_options</span> <span class="o">=</span> <span class="p">{</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="s1">&#39;velocityType&#39;</span><span class="p">:</span> <span class="s1">&#39;Global Wind&#39;</span><span class="p">,</span>
@@ -627,10 +779,22 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 </div>
 </div>
 </div>
+<hr class="docutils" />
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
+<p>In this example we loaded sea level data from an analysis-ready cloud based dataset and made a visualization of that data using mapping library.</p>
+</div>
+<div class="section" id="resources-and-references">
+<h2>Resources and references<a class="headerlink" href="#resources-and-references" title="Permalink to this headline"><i class="fas fa-link"></i></a></h2>
+<ul class="simple">
+<li><p>This notebook is based on the Pangeo physical oceanography gallery example: <a class="reference external" href="https://gallery.pangeo.io/repos/pangeo-gallery/physical-oceanography/05_gulf_stream_currents.html">https://gallery.pangeo.io/repos/pangeo-gallery/physical-oceanography/05_gulf_stream_currents.html</a></p></li>
+</ul>
+</div>
+</div>
 
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"0040706e9a764cf2a1aa4c8e44853c43": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletTileLayerModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletTileLayerModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletTileLayerView", "attribution": "&copy; <a href=\"http://www.gaode.com/\">Gaode.com</a>", "base": true, "bottom": true, "bounds": null, "detect_retina": false, "loading": false, "max_native_zoom": 18, "max_zoom": 19, "min_native_zoom": 0, "min_zoom": 1, "name": "Gaode.Satellite", "no_wrap": false, "opacity": 1.0, "options": ["attribution", "bounds", "detect_retina", "max_native_zoom", "max_zoom", "min_native_zoom", "min_zoom", "no_wrap", "tile_size", "tms"], "popup": null, "popup_max_height": null, "popup_max_width": 300, "popup_min_width": 50, "show_loading": false, "tile_size": 256, "tms": false, "url": "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}", "visible": true}}, "00df58dab0db4919aa3f292113d57d75": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapModel", "state": {"_dom_classes": [], "_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletMapView", "bottom": 0.0, "bounce_at_zoom_limits": true, "box_zoom": true, "center": [35, -50], "close_popup_on_click": true, "controls": ["IPY_MODEL_efe2d3e448104cf0aaea4d4b1d1c6cdc", "IPY_MODEL_f2f16213f81d46258f59436ad306d7a7"], "crs": {"custom": false, "name": "EPSG3857"}, "default_style": "IPY_MODEL_e8b7d8a8bad8405e8834e9a0a78ec0cd", "double_click_zoom": true, "dragging": true, "dragging_style": "IPY_MODEL_1ed31ee62584490b8377aa8e44bc517d", "east": 0.0, "fullscreen": false, "inertia": true, "inertia_deceleration": 3000, "inertia_max_speed": 1500, "interpolation": "nearest", "keyboard": true, "keyboard_pan_offset": 80, "keyboard_zoom_offset": 1, "layers": ["IPY_MODEL_0040706e9a764cf2a1aa4c8e44853c43"], "layout": "IPY_MODEL_e78c4d69c81a45ed84a9c1d89d66b914", "left": 9007199254740991.0, "max_zoom": 18.0, "min_zoom": 1.0, "modisdate": "2022-06-28", "north": 0.0, "options": ["bounce_at_zoom_limits", "box_zoom", "center", "close_popup_on_click", "double_click_zoom", "dragging", "fullscreen", "inertia", "inertia_deceleration", "inertia_max_speed", "interpolation", "keyboard", "keyboard_pan_offset", "keyboard_zoom_offset", "max_zoom", "min_zoom", "prefer_canvas", "scroll_wheel_zoom", "tap", "tap_tolerance", "touch_zoom", "world_copy_jump", "zoom", "zoom_animation_threshold", "zoom_delta", "zoom_snap", "zoom_start"], "prefer_canvas": false, "right": 0.0, "scroll_wheel_zoom": false, "south": 0.0, "style": "IPY_MODEL_150758d00c6b41738b893eb641da2226", "tap": true, "tap_tolerance": 15, "top": 9007199254740991.0, "touch_zoom": true, "west": 0.0, "window_url": "", "world_copy_jump": false, "zoom": 4.0, "zoom_animation_threshold": 4, "zoom_delta": 1.0, "zoom_snap": 1.0, "zoom_start": 12.0}}, "150758d00c6b41738b893eb641da2226": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "grab"}}, "1ed31ee62584490b8377aa8e44bc517d": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "move"}}, "e78c4d69c81a45ed84a9c1d89d66b914": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e8b7d8a8bad8405e8834e9a0a78ec0cd": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "grab"}}, "efe2d3e448104cf0aaea4d4b1d1c6cdc": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletZoomControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletZoomControlModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletZoomControlView", "options": ["position", "zoom_in_text", "zoom_in_title", "zoom_out_text", "zoom_out_title"], "position": "topleft", "zoom_in_text": "+", "zoom_in_title": "Zoom in", "zoom_out_text": "-", "zoom_out_title": "Zoom out"}}, "f2f16213f81d46258f59436ad306d7a7": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletAttributionControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletAttributionControlModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletAttributionControlView", "options": ["position", "prefix"], "position": "bottomright", "prefix": "ipyleaflet"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"0252f26e83e04c3991aeb999fb01d091": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "grab"}}, "17dd0dd69e7e430aa4370a367b4346c2": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletZoomControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletZoomControlModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletZoomControlView", "options": ["position", "zoom_in_text", "zoom_in_title", "zoom_out_text", "zoom_out_title"], "position": "topleft", "zoom_in_text": "+", "zoom_in_title": "Zoom in", "zoom_out_text": "-", "zoom_out_title": "Zoom out"}}, "376b5f16b1a947a890086b06327ced64": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletAttributionControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletAttributionControlModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletAttributionControlView", "options": ["position", "prefix"], "position": "bottomright", "prefix": "ipyleaflet"}}, "39519f8e407a4141a3869f6599ab3489": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "grab"}}, "5e91d98031df4ecfadfcf9bee1b8c0e0": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapModel", "state": {"_dom_classes": [], "_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletMapView", "bottom": 0.0, "bounce_at_zoom_limits": true, "box_zoom": true, "center": [35, -50], "close_popup_on_click": true, "controls": ["IPY_MODEL_17dd0dd69e7e430aa4370a367b4346c2", "IPY_MODEL_376b5f16b1a947a890086b06327ced64"], "crs": {"custom": false, "name": "EPSG3857"}, "default_style": "IPY_MODEL_0252f26e83e04c3991aeb999fb01d091", "double_click_zoom": true, "dragging": true, "dragging_style": "IPY_MODEL_cab0b12afe814f06b90faab40e22d28a", "east": 0.0, "fullscreen": false, "inertia": true, "inertia_deceleration": 3000, "inertia_max_speed": 1500, "interpolation": "nearest", "keyboard": true, "keyboard_pan_offset": 80, "keyboard_zoom_offset": 1, "layers": ["IPY_MODEL_cebbfcddbc0c45f3b0d0d7358e704ea3"], "layout": "IPY_MODEL_a1ac3004ef704e85811cb4d6004dcfeb", "left": 9007199254740991.0, "max_zoom": 18.0, "min_zoom": 1.0, "modisdate": "2022-06-28", "north": 0.0, "options": ["bounce_at_zoom_limits", "box_zoom", "center", "close_popup_on_click", "double_click_zoom", "dragging", "fullscreen", "inertia", "inertia_deceleration", "inertia_max_speed", "interpolation", "keyboard", "keyboard_pan_offset", "keyboard_zoom_offset", "max_zoom", "min_zoom", "prefer_canvas", "scroll_wheel_zoom", "tap", "tap_tolerance", "touch_zoom", "world_copy_jump", "zoom", "zoom_animation_threshold", "zoom_delta", "zoom_snap", "zoom_start"], "prefer_canvas": false, "right": 0.0, "scroll_wheel_zoom": false, "south": 0.0, "style": "IPY_MODEL_39519f8e407a4141a3869f6599ab3489", "tap": true, "tap_tolerance": 15, "top": 9007199254740991.0, "touch_zoom": true, "west": 0.0, "window_url": "", "world_copy_jump": false, "zoom": 4.0, "zoom_animation_threshold": 4, "zoom_delta": 1.0, "zoom_snap": 1.0, "zoom_start": 12.0}}, "a1ac3004ef704e85811cb4d6004dcfeb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cab0b12afe814f06b90faab40e22d28a": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletMapStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "cursor": "move"}}, "cebbfcddbc0c45f3b0d0d7358e704ea3": {"model_module": "jupyter-leaflet", "model_module_version": "^0.16.0", "model_name": "LeafletTileLayerModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.16.0", "_model_name": "LeafletTileLayerModel", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.16.0", "_view_name": "LeafletTileLayerView", "attribution": "&copy; <a href=\"http://www.gaode.com/\">Gaode.com</a>", "base": true, "bottom": true, "bounds": null, "detect_retina": false, "loading": false, "max_native_zoom": 18, "max_zoom": 19, "min_native_zoom": 0, "min_zoom": 1, "name": "Gaode.Satellite", "no_wrap": false, "opacity": 1.0, "options": ["attribution", "bounds", "detect_retina", "max_native_zoom", "max_zoom", "min_native_zoom", "min_zoom", "no_wrap", "tile_size", "tms"], "popup": null, "popup_max_height": null, "popup_max_width": 300, "popup_min_width": 50, "show_loading": false, "tile_size": 256, "tms": false, "url": "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}", "visible": true}}}, "version_major": 2, "version_minor": 0}
 </script>
 
 
