@@ -17,9 +17,8 @@ tags:
     - dask
     - holoviews
 
-# Execute the notebooks upon building the book?
-# See https://jupyterbook.org/en/stable/content/execute.html
 execute:
+  # To execute notebooks via a binder instead, replace 'cache' with 'binder'
   execute_notebooks: cache
   timeout: 600
   allow_errors: True
@@ -58,7 +57,7 @@ sphinx:
           icon: fab fa-youtube-square
           type: fontawesome
       launch_buttons:
-        binderhub_url: https://mybinder.org
+        binderhub_url: http://binder.mypythia.org
         notebook_interface: jupyterlab
       extra_navbar: |
         Theme by <a href="https://projectpythia.org">Project Pythia</a>.<br><br>
