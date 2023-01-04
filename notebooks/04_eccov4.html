@@ -510,17 +510,17 @@ All code in Pythia Cookbooks is licensed under Apache 2.0. All other non-code co
 
 <span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.10/site-packages/intake_xarray/base.py:69,</span> in <span class="ni">DataSourceMixin.to_dask</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">     </span><span class="mi">67</span> <span class="k">def</span> <span class="nf">to_dask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="sd">&quot;&quot;&quot;Return xarray object where variables are dask arrays&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Return xarray object where variables are dask arrays&quot;&quot;&quot;</span>
 <span class="ne">---&gt; </span><span class="mi">69</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_chunked</span><span class="p">()</span>
 
 <span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.10/site-packages/intake_xarray/base.py:44,</span> in <span class="ni">DataSourceMixin.read_chunked</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="k">def</span> <span class="nf">read_chunked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="sd">&quot;&quot;&quot;Return xarray object (which will have chunks)&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Return xarray object (which will have chunks)&quot;&quot;&quot;</span>
 <span class="ne">---&gt; </span><span class="mi">44</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_load_metadata</span><span class="p">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">45</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ds</span>
 
 <span class="nn">File /usr/share/miniconda3/envs/po-cookbook-dev/lib/python3.10/site-packages/intake/source/base.py:285,</span> in <span class="ni">DataSourceBase._load_metadata</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="sd">&quot;&quot;&quot;load metadata only if needed&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;load metadata only if needed&quot;&quot;&quot;</span>
 <span class="g g-Whitespace">    </span><span class="mi">284</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">285</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_schema</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">286</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">dtype</span>
@@ -1431,7 +1431,7 @@ ADVy_TH    (time, k, face, j_g, i) float32 dask.array&lt;shape=(288, 50, 13, 90,
         
           By the <a href="https://projectpythia.org/">Project Pythia</a> Community.
         
-          Last updated on 5 December 2022.
+          Last updated on 4 January 2023.
         </p>
       </div>
     </div>
