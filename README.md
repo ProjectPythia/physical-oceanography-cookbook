@@ -4,6 +4,7 @@
 
 [![nightly-build](https://github.com/ProjectPythia/physical-oceanography-cookbook/actions/workflows/nightly-build.yaml/badge.svg)](https://github.com/ProjectPythia/physical-oceanography-cookbook/actions/workflows/nightly-build.yaml)
 [![Binder](http://binder.mypythia.org/badge_logo.svg)](http://binder.mypythia.org/v2/gh/ProjectPythia/physical-oceanography-cookbook/main?labpath=notebooks)
+[![DOI](https://zenodo.org/badge/507997816.svg)](https://zenodo.org/badge/latestdoi/507997816)
 
 This Project Pythia Cookbook covers ... (replace `...` with the main subject of your cookbook ... e.g., *working with radar data in Python*)
 

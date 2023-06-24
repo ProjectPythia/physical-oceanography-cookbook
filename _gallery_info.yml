@@ -1,0 +1,8 @@
+thumbnail: thumbnail.png
+tags:
+  domains:
+    - oceanography
+  packages:
+    - xarray
+    - dask
+    - holoviews

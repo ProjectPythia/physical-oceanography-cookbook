@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this cookbook, please cite it as below."
+authors:
+  # add additional entries for each author -- see https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
+  - family-names: Munroe
+    given-names: James
+    website: https://github.com/jmunroe # optional
+  - name: "Physical Oceanography Cookbook contributors" # use the 'name' field to acknowledge organizations
+    website: "https://github.com/ProjectPythia/physical-oceanography-cookbook/graphs/contributors"
+title: "Physical Oceanography Cookbook"
+abstract: "Examples of how to use Xarray, Dask, and Holoviews to load, process, and visualize cloud-based ocean data. Datasets include satellite observations (gridded sea-surface height) and ocean model output (POP, MOM6)."
