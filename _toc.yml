@@ -7,7 +7,7 @@ parts:
   - caption: Example Workflows
     chapters:
       - file: notebooks/01_sea-surface-height.ipynb
-      - file: notebooks/02_along_track.ipynb
-      - file: notebooks/03_cesm_MOM6.ipynb
-      - file: notebooks/04_eccov4.ipynb
+      # - file: notebooks/02_along_track.ipynb
+      # - file: notebooks/03_cesm_MOM6.ipynb
+      # - file: notebooks/04_eccov4.ipynb
       - file: notebooks/05_gulf_stream_currents.ipynb
