@@ -1,1 +1,1 @@
-import{a}from"/physical-oceanography-cookbook/build/_shared/chunk-ZJWNTTCK.js";import"/physical-oceanography-cookbook/build/_shared/chunk-7H4MNJGC.js";import"/physical-oceanography-cookbook/build/_shared/chunk-2NH4LW52.js";export default a();
+import{a}from"/physical-oceanography-cookbook/_preview/41/build/_shared/chunk-ZJWNTTCK.js";import"/physical-oceanography-cookbook/_preview/41/build/_shared/chunk-7H4MNJGC.js";import"/physical-oceanography-cookbook/_preview/41/build/_shared/chunk-2NH4LW52.js";export default a();
