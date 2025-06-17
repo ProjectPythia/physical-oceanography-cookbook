@@ -1,6 +1,6 @@
-<img src="thumbnail.png" alt="thumbnail" width="300"/>
-
 # Physical Oceanography Cookbook
+
+<img src="thumbnail.png" alt="thumbnail" width="300"/>
 
 [![nightly-build](https://github.com/ProjectPythia/physical-oceanography-cookbook/actions/workflows/nightly-build.yaml/badge.svg)](https://github.com/ProjectPythia/physical-oceanography-cookbook/actions/workflows/nightly-build.yaml)
 [![Binder](http://binder.projectpythia.org/badge_logo.svg)](http://binder.projectpythia.org/v2/gh/ProjectPythia/physical-oceanography-cookbook/main?labpath=notebooks)
