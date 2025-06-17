@@ -23,3 +23,4 @@ dependencies:
   - xgcm
   - xhistogram
   - sphinx-pythia-theme
+  - mystmd
