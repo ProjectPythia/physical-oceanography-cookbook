@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:3000/sitemap_style.xsl" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:3000</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/notebook-template</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/sea-surface-height</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/along-track</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/cesm-mom6</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/eccov4</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notebooks/gulf-stream-currents</loc>
+  </url>
+</urlset>
