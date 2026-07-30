@@ -183,43 +183,43 @@ File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/zarr/
 [1;32m    296[0m             )
 [1;32m    297[0m         )
 
-File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/extended_gcsfs.py:591[0m, in [0;36mExtendedGcsFileSystem._cat_file[0;34m(self, path, start, end, mrd, concurrency, **kwargs)[0m
-[1;32m    588[0m bucket, object_name, generation [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39msplit_path(path)
-[1;32m    589[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_is_zonal_bucket(bucket):
-[1;32m    590[0m     [38;5;66;03m# Fall back to default implementation if not a zonal bucket[39;00m
-[0;32m--> 591[0m     [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28msuper[39m()[38;5;241m.[39m_cat_file(
-[1;32m    592[0m         path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, concurrency[38;5;241m=[39mconcurrency, [38;5;241m*[39m[38;5;241m*[39mkwargs
-[1;32m    593[0m     )
-[1;32m    595[0m [38;5;66;03m# Instantiate an MRDPool locally for this call[39;00m
-[1;32m    596[0m mrd [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_mrd_pool_cache[38;5;241m.[39mget(
-[1;32m    597[0m     bucket, object_name, generation, pool_size[38;5;241m=[39mconcurrency
-[1;32m    598[0m )
+File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/extended_gcsfs.py:509[0m, in [0;36mExtendedGcsFileSystem._cat_file[0;34m(self, path, start, end, mrd, concurrency, **kwargs)[0m
+[1;32m    506[0m bucket, object_name, generation [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39msplit_path(path)
+[1;32m    507[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_is_zonal_bucket(bucket):
+[1;32m    508[0m     [38;5;66;03m# Fall back to default implementation if not a zonal bucket[39;00m
+[0;32m--> 509[0m     [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28msuper[39m()[38;5;241m.[39m_cat_file(
+[1;32m    510[0m         path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, concurrency[38;5;241m=[39mconcurrency, [38;5;241m*[39m[38;5;241m*[39mkwargs
+[1;32m    511[0m     )
+[1;32m    513[0m [38;5;66;03m# Instantiate an MRDPool locally for this call[39;00m
+[1;32m    514[0m mrd [38;5;241m=[39m zb_hns_utils[38;5;241m.[39mMRDPool(
+[1;32m    515[0m     [38;5;28mself[39m, bucket, object_name, generation, pool_size[38;5;241m=[39mconcurrency
+[1;32m    516[0m )
 
-File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:1271[0m, in [0;36mGCSFileSystem._cat_file[0;34m(self, path, start, end, concurrency, **kwargs)[0m
-[1;32m   1264[0m     [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_cat_file_concurrent(
-[1;32m   1265[0m         path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, concurrency[38;5;241m=[39mconcurrency, [38;5;241m*[39m[38;5;241m*[39mkwargs
-[1;32m   1266[0m     )
-[1;32m   1268[0m [38;5;66;03m# While we could just call _cat_file_concurrent(concurrency=1), we are choosing[39;00m
-[1;32m   1269[0m [38;5;66;03m# to keep it separate because concurrency code path is still in an experimental phase.[39;00m
-[1;32m   1270[0m [38;5;66;03m# Once concurrency code path is stabilized, we can remove this if-else condition.[39;00m
-[0;32m-> 1271[0m [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_cat_file_sequential(path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:1250[0m, in [0;36mGCSFileSystem._cat_file[0;34m(self, path, start, end, concurrency, **kwargs)[0m
+[1;32m   1243[0m     [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_cat_file_concurrent(
+[1;32m   1244[0m         path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, concurrency[38;5;241m=[39mconcurrency, [38;5;241m*[39m[38;5;241m*[39mkwargs
+[1;32m   1245[0m     )
+[1;32m   1247[0m [38;5;66;03m# While we could just call _cat_file_concurrent(concurrency=1), we are choosing[39;00m
+[1;32m   1248[0m [38;5;66;03m# to keep it separate because concurrency code path is still in an experimental phase.[39;00m
+[1;32m   1249[0m [38;5;66;03m# Once concurrency code path is stabilized, we can remove this if-else condition.[39;00m
+[0;32m-> 1250[0m [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_cat_file_sequential(path, start[38;5;241m=[39mstart, end[38;5;241m=[39mend, [38;5;241m*[39m[38;5;241m*[39mkwargs)
 
-File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:1217[0m, in [0;36mGCSFileSystem._cat_file_sequential[0;34m(self, path, start, end, **kwargs)[0m
-[1;32m   1214[0m     head [38;5;241m=[39m {}
-[1;32m   1216[0m cache_type [38;5;241m=[39m kwargs[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mcache_type[39m[38;5;124m"[39m)
-[0;32m-> 1217[0m headers, out [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_call([38;5;124m"[39m[38;5;124mGET[39m[38;5;124m"[39m, u2, headers[38;5;241m=[39mhead, cache_type[38;5;241m=[39mcache_type)
-[1;32m   1218[0m [38;5;28;01mreturn[39;00m out
+File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:1194[0m, in [0;36mGCSFileSystem._cat_file_sequential[0;34m(self, path, start, end, **kwargs)[0m
+[1;32m   1191[0m [38;5;28;01melse[39;00m:
+[1;32m   1192[0m     head [38;5;241m=[39m {}
+[0;32m-> 1194[0m headers, out [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_call([38;5;124m"[39m[38;5;124mGET[39m[38;5;124m"[39m, u2, headers[38;5;241m=[39mhead)
+[1;32m   1195[0m [38;5;28;01mreturn[39;00m out
 
-File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:528[0m, in [0;36mGCSFileSystem._call[0;34m(self, method, path, json_out, info_out, *args, **kwargs)[0m
-[1;32m    524[0m [38;5;28;01masync[39;00m [38;5;28;01mdef[39;00m[38;5;250m [39m[38;5;21m_call[39m(
-[1;32m    525[0m     [38;5;28mself[39m, method, path, [38;5;241m*[39margs, json_out[38;5;241m=[39m[38;5;28;01mFalse[39;00m, info_out[38;5;241m=[39m[38;5;28;01mFalse[39;00m, [38;5;241m*[39m[38;5;241m*[39mkwargs
-[1;32m    526[0m ):
-[1;32m    527[0m     logger[38;5;241m.[39mdebug([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mmethod[38;5;241m.[39mupper()[38;5;132;01m}[39;00m[38;5;124m: [39m[38;5;132;01m{[39;00mpath[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00margs[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00mkwargs[38;5;241m.[39mget([38;5;124m'[39m[38;5;124mheaders[39m[38;5;124m'[39m)[38;5;132;01m}[39;00m[38;5;124m"[39m)
-[0;32m--> 528[0m     status, headers, info, contents [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_request(
-[1;32m    529[0m         method, path, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs
-[1;32m    530[0m     )
-[1;32m    531[0m     [38;5;28;01mif[39;00m json_out:
-[1;32m    532[0m         [38;5;28;01mreturn[39;00m json[38;5;241m.[39mloads(contents)
+File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:509[0m, in [0;36mGCSFileSystem._call[0;34m(self, method, path, json_out, info_out, *args, **kwargs)[0m
+[1;32m    505[0m [38;5;28;01masync[39;00m [38;5;28;01mdef[39;00m[38;5;250m [39m[38;5;21m_call[39m(
+[1;32m    506[0m     [38;5;28mself[39m, method, path, [38;5;241m*[39margs, json_out[38;5;241m=[39m[38;5;28;01mFalse[39;00m, info_out[38;5;241m=[39m[38;5;28;01mFalse[39;00m, [38;5;241m*[39m[38;5;241m*[39mkwargs
+[1;32m    507[0m ):
+[1;32m    508[0m     logger[38;5;241m.[39mdebug([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mmethod[38;5;241m.[39mupper()[38;5;132;01m}[39;00m[38;5;124m: [39m[38;5;132;01m{[39;00mpath[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00margs[38;5;132;01m}[39;00m[38;5;124m, [39m[38;5;132;01m{[39;00mkwargs[38;5;241m.[39mget([38;5;124m'[39m[38;5;124mheaders[39m[38;5;124m'[39m)[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[0;32m--> 509[0m     status, headers, info, contents [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_request(
+[1;32m    510[0m         method, path, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs
+[1;32m    511[0m     )
+[1;32m    512[0m     [38;5;28;01mif[39;00m json_out:
+[1;32m    513[0m         [38;5;28;01mreturn[39;00m json[38;5;241m.[39mloads(contents)
 
 File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/decorator/__init__.py:237[0m, in [0;36mdecorate.<locals>.fun[0;34m(*args, **kw)[0m
 [1;32m    235[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m kwsyntax:
@@ -242,11 +242,11 @@ File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs
 [1;32m    164[0m         [38;5;129;01mand[39;00m [38;5;124m"[39m[38;5;124mrequester pays[39m[38;5;124m"[39m [38;5;129;01min[39;00m e[38;5;241m.[39mmessage
 [1;32m    165[0m     ):
 
-File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:521[0m, in [0;36mGCSFileSystem._request[0;34m(self, method, path, headers, json, data, cache_type, *args, **kwargs)[0m
-[1;32m    518[0m info [38;5;241m=[39m r[38;5;241m.[39mrequest_info  [38;5;66;03m# for debug only[39;00m
-[1;32m    519[0m contents [38;5;241m=[39m [38;5;28;01mawait[39;00m r[38;5;241m.[39mread()
-[0;32m--> 521[0m [43mvalidate_response[49m[43m([49m[43mstatus[49m[43m,[49m[43m [49m[43mcontents[49m[43m,[49m[43m [49m[43mpath[49m[43m,[49m[43m [49m[43margs[49m[43m)[49m
-[1;32m    522[0m [38;5;28;01mreturn[39;00m status, headers, info, contents
+File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/core.py:502[0m, in [0;36mGCSFileSystem._request[0;34m(self, method, path, headers, json, data, *args, **kwargs)[0m
+[1;32m    499[0m info [38;5;241m=[39m r[38;5;241m.[39mrequest_info  [38;5;66;03m# for debug only[39;00m
+[1;32m    500[0m contents [38;5;241m=[39m [38;5;28;01mawait[39;00m r[38;5;241m.[39mread()
+[0;32m--> 502[0m [43mvalidate_response[49m[43m([49m[43mstatus[49m[43m,[49m[43m [49m[43mcontents[49m[43m,[49m[43m [49m[43mpath[49m[43m,[49m[43m [49m[43margs[49m[43m)[49m
+[1;32m    503[0m [38;5;28;01mreturn[39;00m status, headers, info, contents
 
 File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs/retry.py:138[0m, in [0;36mvalidate_response[0;34m(status, content, path, args)[0m
 [1;32m    136[0m     [38;5;28;01mraise[39;00m requests[38;5;241m.[39mexceptions[38;5;241m.[39mProxyError()
@@ -255,5 +255,5 @@ File [0;32m~/micromamba/envs/po-cookbook-dev/lib/python3.14/site-packages/gcsfs
 [1;32m    139[0m [38;5;28;01melif[39;00m error [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m(error, [38;5;28mstr[39m):
 [1;32m    140[0m     [38;5;28;01mraise[39;00m HttpError(error)
 
-[0;31mValueError[0m: Bad Request: https://storage.googleapis.com/download/storage/v1/b/pangeo-ecco-eccov4r3/o/eccov4r3%2F.zattrs?alt=media
+[0;31mValueError[0m: Bad Request: https://storage.googleapis.com/download/storage/v1/b/pangeo-ecco-eccov4r3/o/eccov4r3%2F.zgroup?alt=media
 User project specified in the request is invalid.
