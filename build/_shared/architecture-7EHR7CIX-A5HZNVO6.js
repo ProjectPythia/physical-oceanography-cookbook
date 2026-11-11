@@ -1,1 +1,0 @@
-import{a as e,b as r}from"/physical-oceanography-cookbook/build/_shared/chunk-7FGDXJSL.js";import"/physical-oceanography-cookbook/build/_shared/chunk-GEZIJWLJ.js";import"/physical-oceanography-cookbook/build/_shared/chunk-RAQ24GF6.js";export{e as ArchitectureModule,r as createArchitectureServices};
